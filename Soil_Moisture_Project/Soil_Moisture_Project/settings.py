@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'Soil_Moisture_Project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'soil_moisture',
         'USER': 'root',
         'PASSWORD': '',
