@@ -1,0 +1,64 @@
+
+{% extends 'soil_moisture/layout.html' %}
+
+
+
+{% block body %}
+
+{% load static %}
+       
+<header>
+  <nav id="navbar" class="navbar navbar-light navbar-custom">
+    <!-- Image and text -->
+    <a class="navbar-brand" href="#">
+        <img src="{% static 'soil_moisture/images/dark4.jpg' %}" width="70" class="d-inline-block align-top" alt="">
+        MoistureMonitor AI
+    </a>
+    
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  
+    <div class="user-info"> 
+          <div class="dropdown">
+            <a href="#" id="notificationsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class='bx bxs-bell'><span class="badge badge-danger">3</span></i>
+                
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsLink">
+                <a class="dropdown-item" href="#">Notification 1</a>
+                <a class="dropdown-item" href="#">Notification 2</a>
+                <a class="dropdown-item" href="#">Notification 3</a>
+            </div>
+        </div>
+        <div class="date-time">
+          <span id="current-date"></span>
+        </div>
+
+          <div class="dropdown">
+            <a href="#" id="notificationsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-3">{{ request.user }}  <img src="{% static 'soil_moisture/images/admin.jpg' %}" alt="User Avatar"></span>
+                            
+            </a>
+            
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsLink">
+                <p><a href="">Profile</a></p>
+                <p><a href="{% url 'logout' %}" >Logout</a></p>
+                
+            </div>
+          </div>
+
+        
+        
+    </div>
+  </nav>
+  <script src="{% static 'soil_moisture/js/date.js' %}"></script>
+</header>
+
+  {% block header %}
+  {% endblock %}
+
+{% endblock %}
+  
+
