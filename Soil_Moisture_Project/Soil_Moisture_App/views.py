@@ -61,3 +61,5 @@ def home(request):
 
 def Dashboard(request):
     return render(request, 'soil_moisture/Dashboard.html')
+
+
