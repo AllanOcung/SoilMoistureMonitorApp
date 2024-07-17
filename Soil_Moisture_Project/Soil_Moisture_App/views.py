@@ -1,9 +1,12 @@
 
+from audioop import avg
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterForm
 from django.contrib.auth.models import Group
+from .models import SoilData
+from django.db.models import Avg
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -59,5 +62,9 @@ def home(request):
     return render(request, 'soil_moisture/home.html')
 
 
-def Dashboard(request):
-    return render(request, 'soil_moisture/Dashboard.html')
+
+def dashboard(request):
+    return render(request, 'soil_moisture/dashboard.html')
+
+
+

@@ -30,6 +30,6 @@ def admin_only(view_funct):
             if group == 'admin':
                 return view_funct(request, *args, **kwargs)
             if group == 'farmers':
-                return redirect('Dashboard')
+                return redirect('dashboard')
             
     return wrapper_funct

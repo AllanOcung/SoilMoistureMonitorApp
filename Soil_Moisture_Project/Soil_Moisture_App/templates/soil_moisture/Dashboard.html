@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Page</title>
+    <title>User Dashboard</title>
 </head>
 <body>
-    <h1>User Page</h1>
-
-    <span>Hello, {{ request.user }}</span>
-    <span><a href="{% url 'logout' %}"> Logout</a></span>
+    <a href="{% url 'logout' %}" class="ml-2">Logout</a>
 </body>
 </html>
