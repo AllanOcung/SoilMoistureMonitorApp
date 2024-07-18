@@ -1,11 +1,321 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>Soil Data Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .sidebar {
+            background-color: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            height: 100vh;
+        }
+        .sidebar-heading {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #007bff;
+            padding: 1rem;
+        }
+        .list-group-item {
+            background-color: transparent;
+            border-color: transparent;
+            color: #495057;
+        }
+        .list-group-item:hover {
+            background-color: #e9ecef;
+        }
+        .content {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+        rain {
+            width: 0px;
+            height: 0px;
+            padding-left: 300px
+        }
+        
+           
+        
+
+
+        
+    </style>
+    
 </head>
 <body>
-    <a href="{% url 'logout' %}" class="ml-2">Logout</a>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Soil Data Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a href="{% url 'logout' %}"> logout</a>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Settings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block sidebar">
+            <div class="sidebar-sticky">
+                <h6 class="sidebar-heading">Dashboard Navigation</h6>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            Dashboard <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Reports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Profile
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4">
+            <div class="content">
+                <h2>Soil Data Dashboard</h2>
+                <p>Welcome to the Soil Data Dashboard. Here you can view the latest soil data collected from the sensors.</p>
+            
+
+
+                <div class="container">
+            
+                    
+                    <!-- Cards displaying average soil moisture and rainfall per location -->
+                    <div class="card-columns mt-4">
+                        {% for item in location_data %}
+                            <div class="card">
+                                <div class="card-body" style = "background-color:#007bff;">
+                                    <h5 class="card-title">{{ item.location }}</h5>
+                                    <p class="card-text"><strong>Average Moisture:</strong> {{ item.avg_moisture }}</p>
+                                    <p class="card-text"><strong>Average Rainfall:</strong> {{ item.avg_rainfall }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="my-4">
+                    <h6 style = "color:red;">Average Soil Moisture Per Soil Texture</h6>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                {% for header in soil_texture_headers %}
+                                    <th>{{ header }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {% for moisture in avg_moistures %}
+                                    <td>{{ moisture|floatformat:2 }}</td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <div class="my-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Humidity vs Temperature</h3>
+                        <canvas id="HumidityTemperatureChart" width="400" height="200"></canvas>
+                    </div>
+                    
+                    <div>
+                        <div class = "rain">
+                        <h3>Rainfall recieved in each location</h3>
+                        <canvas id="rainfallChart" width = "400" height ="200"></canvas>
+                    </div> 
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function createChart(ctx, labels, datasets) {
+        new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                labels: labels,
+                datasets: datasets
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        title: {
+                            display: true,
+                            text: 'Temperature'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return value + '°C'; // Add °C to temperature labels
+                            }
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Humidity'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%'; // Add % to humidity labels
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    var data = [
+        {% for entry in data %}
+            {
+                date: '{{ entry.date|date:"Y-m-d" }}',
+                time: '{{ entry.time }}',
+                soil_moisture: {{ entry.soil_moisture }},
+                temperature: {{ entry.temperature }},
+                humidity: {{ entry.humidity }},
+                rainfall: {{ entry.rainfall }}
+            },
+        {% endfor %}
+    ];
+
+    var temperatureData = data.map(function(entry) {
+        return entry.temperature; // Temperature for x-axis data
+    });
+
+    var humidityData = data.map(function(entry) {
+        return entry.humidity; // Humidity for y-axis data
+    });
+
+    var ctx = document.getElementById('HumidityTemperatureChart').getContext('2d');
+    createChart(ctx, temperatureData, [{
+        label: 'Humidity vs Temperature',
+        data: data.map(function(entry) {
+            return {
+                x: entry.temperature,
+                y: entry.humidity
+            };
+        }),
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+    }]);
+// draw a pie chart showing the average rainfall recieved in each location
+document.addEventListener('DOMContentLoaded', function () {
+    var ctx = document.getElementById('rainfallChart').getContext('2d');
+
+    var labels = [];
+    var data = [];
+    
+    {% for area in average_rainfall_per_area %}
+        labels.push("{{ area.location }}");
+        data.push("{{ area.avg_rainfall }}");
+    {% endfor %}
+
+    var chartData = {
+        labels: labels,
+        datasets: [{
+            data: data,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 106, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    var rainfallChart = new Chart(ctx, {
+        type: 'pie',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: true
+        }
+
+     
+    });
+});
+// draw a card showing the average soil moisture and rainfall recieved in each location
+
+
+
+
+
+    
+
+    
+</script>
+
 </body>
 </html>

@@ -1,8 +1,18 @@
 
-
-<!-- =============== CSS ================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- =============== CSS ================ -->
     {% load static%}
     <link rel="stylesheet" href="{% static 'soil_moisture/css/sidebar.css' %}">
+
+</head>
+<body>
+    
+
 
 <nav class="sidebar">
     <header>
@@ -78,13 +88,29 @@
             </ul>
             <hr>
             <div class="bottom-content">
-                <li class="nav-link">
+                <li class="">
                     <a href="">
-                        <i class='bx bxs-home-alt-2 icon' ></i>
+                        <i class='bx bx-log-out icon' ></i>
                         <span class="text nav-text">Bottom</span>
                     </a>
+                </li>
+                <li class="mode">
+                    <div class="moon-sun">
+                        <i class='bx bx-moon icon moon' ></i>
+                        <i class='bx bx-sun icon sun' ></i>
+                    </div>
+                    <span class="mode-text text">Dark Mode</span>
+
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+
                 </li>
             </div>
         </div>
     </div>
 </nav>
+
+<script src="{% static 'soil_moisture/js/mode.js' %}"></script>
+</body>
+</html>
