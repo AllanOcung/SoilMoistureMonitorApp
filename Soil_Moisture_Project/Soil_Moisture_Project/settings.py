@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'feedback',
     'Soil_Moisture_App',
 ]
 
@@ -82,8 +84,8 @@ DATABASES = {
         'NAME': 'soil_moisture',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': 'localhost',  
-        'PORT': '3306',  
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
