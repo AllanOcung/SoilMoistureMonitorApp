@@ -13,5 +13,6 @@ urlpatterns = [
         path('main/', views.main, name='main'),
         path('trends_view/', views.trends_view, name='trends_view'),
         path('major/', views.major, name='major'),
+        path('dashboard/', views.dashboard, name='dashboard'),
         
    ]

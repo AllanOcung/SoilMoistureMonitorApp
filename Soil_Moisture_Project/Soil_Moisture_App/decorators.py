@@ -39,6 +39,6 @@ def admin_only(view_funct):
             if group == 'admin':
                 return view_funct(request, *args, **kwargs)
             if group == 'farmers':
-                return redirect('main')
+                return redirect('major')
             
     return wrapper_funct

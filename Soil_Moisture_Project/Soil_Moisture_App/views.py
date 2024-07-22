@@ -168,3 +168,7 @@ def major(request):
     }
 
     return render(request, 'soil_moisture/major.html', context)
+
+
+def dashboard(request):
+    return render(request, 'soil_moisture/Dashboard.html')
