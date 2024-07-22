@@ -1,41 +1,26 @@
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'soil_moisture/css/header.css' %}">
-       
-<header class="sticky-header">
-  <nav id="navbar" class="navbar navbar-light navbar-custom">
-      <div class="navbar-brand">
-          <a href="#">MoistureMonitor AI</a>
+
+<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+    <div class="container-fluid py-1 px-3">
+      <nav aria-label="breadcrumb">
+        <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+      </nav>
+      <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+          <div class="input-group input-group-outline">
+            <label class="form-label">Type here...</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <ul class="navbar-nav  justify-content-end">
+            <li><a class="dropdown-item" href="{% url 'logout' %}"></i> Logout</a></li>
+          <li class="nav-item d-flex align-items-center">
+            <a href="../pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
+              <i class="fa fa-user me-sm-1"></i>
+              <span class="d-sm-inline d-none">Sign Out</span>
+            </a>
+          </li>
+        </ul>
       </div>
-      <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="search..." aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class='bx bx-search' ></i></button>
-      </form>
-      <div class="user-info">
-          <div class="dropdown">
-              <a href="#" id="notificationsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class='bx bxs-bell'><span class="badge badge-primary">3</span></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsLink">
-                  <a class="dropdown-item" href="#">Notification 1</a>
-                  <a class="dropdown-item" href="#">Notification 2</a>
-                  <a class="dropdown-item" href="#">Notification 3</a>
-              </div>
-          </div>
-          <div class="date-time">
-              <span id="current-date"></span>
-          </div>
-          <div class="dropdown">
-              <img src="{% static 'soil_moisture/images/admin.jpg' %}" alt="User Avatar" class="user-avatar">
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="mr-3">{{ request.user }}</span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="#"><i class='bx bx-user icon'></i>Profile</a>
-                  <a class="dropdown-item" href="{% url 'logout' %}"><i class='bx bx-log-out icon'></i>Logout</a>
-              </div>
-          </div>
-      </div>
+    </div>
   </nav>
-  <script src="{% static 'soil_moisture/js/date.js' %}"></script>
-</header>

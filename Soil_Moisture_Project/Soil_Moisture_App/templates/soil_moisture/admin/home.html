@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Load the static files for this template -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'soil_moisture/css/home.css' %}">
+
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Include the header -->
+        {% include "soil_moisture/admin/header.html" %}
+        <div class="main-content">
+            <!-- Include the sidebar -->
+        {% include "soil_moisture/admin/sidebar.html" %}
+            <div class="content">
+                <!-- Main dashboard content goes here -->
+                <h2>Welcome to the Dashboard</h2>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+

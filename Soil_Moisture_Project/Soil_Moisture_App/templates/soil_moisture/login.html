@@ -12,8 +12,11 @@
 <body>
     <div class="wrapper">
         <form method="POST" action="">
-            <h1>Log in</h1>
+
             {% csrf_token %}
+            
+            <h1>Log in</h1>
+            
             <div class="input-box">
                 <input type="text" name="username" placeholder="Username">
                 <i class='bx bxs-user'></i>

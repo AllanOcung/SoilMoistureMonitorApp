@@ -1,0 +1,146 @@
+
+
+
+/* Main Body Section */
+.main-body {
+    position: absolute;
+    top: 50px;
+    left: 260px;
+    padding: 1rem;
+    padding: 1rem;
+    width: 80%;
+  }
+  
+  .promo_card {
+    width: 100%;
+    color: #fff;
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 0.5rem 1rem 1rem 3rem;
+    background: #af1763;
+  }
+  
+/* rgb(37, 37, 37) */
+
+  .promo_card h1,
+  .promo_card span,
+  button {
+    margin: 5px 0;
+  }
+  
+  .promo_card span {
+    font-family: cursive;
+    font-size: 20px;
+  }
+  
+  .promo_card button {
+    float: right;
+    display: block;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    background: transparent;
+    color: #fff;
+    border: 1px solid;
+    margin: 0 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .promo_card button:hover {
+    background-color: #333;
+  }
+  
+  .history_lists {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .list1,
+  .list2 {
+    width: 48%;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+  }
+  
+  table {
+    width: 100%;
+    background: #fff;
+    padding: 1rem;
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  table th,
+  table td {
+    padding: 0.2rem 0.8rem;
+  }
+  
+  table th {
+    font-size: 15px;
+  }
+  
+  table td {
+    font-size: 13px;
+    color: rgb(100, 100, 100);
+  }
+
+
+  .graph1 {
+    display: flex;
+    width: 48%;
+    float: right;
+    color: black;
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 0.5rem 1rem 1rem 3rem;
+    background: #383232;
+  }
+
+  .graph2 {
+    background-color: green;
+    width: 48%;
+    color: black;
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 0.5rem 1rem 1rem 3rem;
+    background: #fff;
+  }
+
+  .graph3 {
+    background-color: grey;
+    width: 48%;
+    float: right;
+    color: black;
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 0.5rem 1rem 1rem 3rem;
+    background: #fff;
+  }
+
+  .graph4 {
+    background-color: skyblue;
+    width: 48%;
+    color: black;
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 0.5rem 1rem 1rem 3rem;
+    background: #fff;
+  }
+
+  .graph5 {
+    background-color: blue;
+    width: 100%;
+    color: black;
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 0.5rem 1rem 1rem 3rem;
+    background: rgb(37, 37, 37);
+
+  }

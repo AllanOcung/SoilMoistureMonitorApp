@@ -8,118 +8,14 @@
     <title>Soil Data Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            padding-top: 50px;
-        }
-        .sidebar {
-            background-color: #f8f9fa;
-            border-right: 1px solid #dee2e6;
-            height: 100vh;
-        }
-        .sidebar-heading {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #007bff;
-            padding: 1rem;
-        }
-        .list-group-item {
-            background-color: transparent;
-            border-color: transparent;
-            color: #495057;
-        }
-        .list-group-item:hover {
-            background-color: #e9ecef;
-        }
-        .content {
-            padding: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-            text-align: left;
-        }
-        rain {
-            width: 0px;
-            height: 0px;
-            padding-left: 300px
-        }
-        
-           
-        
-
-
-        
-    </style>
     
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Soil Data Dashboard</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <a href="{% url 'logout' %}"> logout</a>
+<a href="{% url 'logout' %}"> logout</a>
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Settings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Profile</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <nav class="col-md-2 d-none d-md-block sidebar">
-            <div class="sidebar-sticky">
-                <h6 class="sidebar-heading">Dashboard Navigation</h6>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            Dashboard <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Reports
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Settings
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Profile
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
 
         <!-- Main content -->
         <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4">
@@ -127,12 +23,8 @@
                 <h2>Soil Data Dashboard</h2>
                 <p>Welcome to the Soil Data Dashboard. Here you can view the latest soil data collected from the sensors.</p>
             
-
-
+                <!-- Cards displaying average soil moisture and rainfall per location -->
                 <div class="container">
-            
-                    
-                    <!-- Cards displaying average soil moisture and rainfall per location -->
                     <div class="card-columns mt-4">
                         {% for item in location_data %}
                             <div class="card">
@@ -145,6 +37,8 @@
                         {% endfor %}
                     </div>
                 </div>
+
+
                 <div class="my-4">
                     <h6 style = "color:red;">Average Soil Moisture Per Soil Texture</h6>
                     <table border="1">
@@ -319,3 +213,56 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </body>
 </html>
+
+
+
+
+
+   <!-- Average Soil Moisture Per Soil Texture -->
+   <div class="my-4">
+    <h6 style="color:red;">Average Soil Moisture Per Soil Texture</h6>
+    <table border="1">
+      <thead>
+        <tr>
+          {% for header in soil_texture_headers %}
+            <th>{{ header }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          {% for moisture in avg_moistures %}
+            <td>{{ moisture|floatformat:2 }}</td>
+          {% endfor %}
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+<!-- Charts -->
+<div class="my-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Humidity vs Temperature</h3>
+      <canvas id="HumidityTemperatureChart" width="400" height="200"></canvas>
+    </div>
+    <div class="col-md-6">
+      <h3>Rainfall received in each location</h3>
+      <canvas id="rainfallChart" width="400" height="200"></canvas>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+  
+
+    
+
+
+    
+
+  

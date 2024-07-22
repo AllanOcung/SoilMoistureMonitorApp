@@ -1,0 +1,108 @@
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: 10px 20px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;  
+  }
+  
+  .logo a {
+    color: #000;
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 50px;
+    text-decoration: none;
+  }
+  
+  .logo .search_box {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+  }
+  
+  .logo .search_box input {
+    padding: 9px 15px;
+    width: 250px;
+    background: rgb(228, 228, 228);
+    border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    outline: none;
+  }
+  
+  .search_box i {
+    padding: 9px 15px;
+    font-size: 15px;
+    cursor: pointer;
+    color: #fff;
+    background: #000;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .header-icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-icons i {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-avatar {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .dropdown-menu-right {
+    right: 0;
+    left: auto;
+  }
+  
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dropdown-item .icon {
+    margin-right: 10px;
+  }
+
+  /* Override the dropdown button style */
+.dropdown .btn.btn-secondary.dropdown-toggle {
+    background: transparent;
+    color: black; 
+    border: none; 
+    border-radius: 5px; 
+    padding: 5px 10px; 
+    font-size: 16px; /* Change font size */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Add transition */
+}
+
+.dropdown .btn.btn-secondary.dropdown-toggle:hover {
+    background-color: #555; /* Change background color on hover */
+    color: #fff; /* Ensure text color remains white */
+}
