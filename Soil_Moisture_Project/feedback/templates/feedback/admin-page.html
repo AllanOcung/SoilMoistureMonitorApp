@@ -7,6 +7,10 @@
     <!-- Load the static files for this template -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'soil_moisture/css/home.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'feedback/css/feedback-admin.css' %}"
+    />
 
     {% include "soil_moisture/links.html" %}
   </head>
@@ -19,10 +23,12 @@
         {% include "soil_moisture/admin/sidebar.html" %}
         <div class="content">
           <!-- Main dashboard content goes here -->
-          <h2>Welcome to the Dashboard</h2>
+
+          {% include "feedback/feedback_container.html" %}
         </div>
       </div>
     </div>
+
     <link rel="stylesheet" href="{% static 'feedback/css/admin-fix.css' %}" />
   </body>
 </html>

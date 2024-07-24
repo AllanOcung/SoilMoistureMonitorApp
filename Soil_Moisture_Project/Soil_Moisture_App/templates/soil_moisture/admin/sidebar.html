@@ -1,83 +1,101 @@
+<!-- =============== CSS ================ -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'soil_moisture/css/sidebar.css' %}" />
 
-    <!-- =============== CSS ================ -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'soil_moisture/css/sidebar.css' %}">
-    
-    <nav class="sidebar">
-        <header>
-            <div class="header">
-                <span>Navigation</span>
-            </div>
-            <i class='bx bx-chevron-right toggle'></i>
-        </header>
+<nav class="sidebar">
+  <header>
+    <div class="header">
+      <span>Navigation</span>
+    </div>
+    <i class="bx bx-chevron-right toggle"></i>
+  </header>
 
-        <div class="menu-bar">
-            <div class="menu">
-                <ul class="menu-links">
-                    <li class="nav-link">
-                        <a href="">
-                            <i class='bx bxs-home-alt-2 icon' ></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <div class="divider"></div>
-                    <li class="nav-link">
-                        <a href="">
-                            <i class='bx bx-line-chart icon'></i>
-                            <span class="text nav-text">Predictions</span>
-                        </a>
-                    </li>
-                    <div class="divider"></div>
-                    <li class="nav-link">
-                        <a href="">
-                            <i class='bx bxs-leaf icon'></i>
-                            <span class="text nav-text">Soil Properties</span>
-                        </a>
-                    </li>
-                    <div class="divider"></div>
-                    <li class="nav-link">
-                        <a href="">
-                            <i class='bx bx-bar-chart-alt icon'></i>
-                            <span class="text nav-text">Factors</span>
-                        </a>
-                    </li>
-                    <div class="divider"></div>
-                    <li class="nav-link">
-                        <a href="">
-                            <i class='bx bx-data icon'></i>
-                            <span class="text nav-text">Soil Data</span>
-                        </a>
-                    </li>
-                    <div class="divider"></div>
-                    <li class="nav-link">
-                        <a href="">
-                            <i class='bx bxs-cloud icon'></i>
-                            <span class="text nav-text">Weather Map</span>
-                        </a>
-                    </li>
-                    <div class="divider"></div>
-                    <li class="nav-link dropdown-btn">
-                        <div class="dropdown">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class='bx bx-transfer icon'></i>                                
-                                <span class="text nav-text">API</span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#"><i class='bx bx-user icon'></i>WeatherStack</a>
-                                <a class="dropdown-item" href=""><i class='bx bx-log-out icon'></i>Tomorrow.io</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="divider"></div>
-                <div class="bottom-content">
-                    <li class="">
-                        <a href="">
-                            <i class='bx bx-log-out icon' ></i>
-                            <span class="text nav-text">Logout</span>
-                        </a>
-                    </li>
-                </div>
+  <div class="menu-bar">
+    <div class="menu">
+      <ul class="menu-links">
+        <li class="nav-link">
+          <a href="">
+            <i class="bx bxs-home-alt-2 icon"></i>
+            <span class="text nav-text">Dashboard</span>
+          </a>
+        </li>
+        <div class="divider"></div>
+        <li class="nav-link">
+          <a href="">
+            <i class="bx bx-line-chart icon"></i>
+            <span class="text nav-text">Predictions</span>
+          </a>
+        </li>
+        <div class="divider"></div>
+        <li class="nav-link">
+          <a href="">
+            <i class="bx bxs-leaf icon"></i>
+            <span class="text nav-text">Soil Properties</span>
+          </a>
+        </li>
+        <div class="divider"></div>
+        <li class="nav-link">
+          <a href="/feedback/admin/list">
+            <i class="bx bx-apps icon"></i>
+            <span class="text nav-text">Feedback</span>
+          </a>
+        </li>
+        <div class="divider"></div>
+        <li class="nav-link">
+          <a href="">
+            <i class="bx bx-bar-chart-alt icon"></i>
+            <span class="text nav-text">Factors</span>
+          </a>
+        </li>
+        <div class="divider"></div>
+        <li class="nav-link">
+          <a href="">
+            <i class="bx bx-data icon"></i>
+            <span class="text nav-text">Soil Data</span>
+          </a>
+        </li>
+        <div class="divider"></div>
+        <li class="nav-link">
+          <a href="">
+            <i class="bx bxs-cloud icon"></i>
+            <span class="text nav-text">Weather Map</span>
+          </a>
+        </li>
+        <div class="divider"></div>
+        <li class="nav-link dropdown-btn">
+          <div class="dropdown">
+            <a
+              class="btn btn-secondary dropdown-toggle"
+              href="#"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="bx bx-transfer icon"></i>
+              <span class="text nav-text">API</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="#"
+                ><i class="bx bx-user icon"></i>WeatherStack</a
+              >
+              <a class="dropdown-item" href=""
+                ><i class="bx bx-log-out icon"></i>Tomorrow.io</a
+              >
             </div>
-        </div>
-    </nav>
+          </div>
+        </li>
+      </ul>
+      <div class="divider"></div>
+      <div class="bottom-content">
+        <li class="">
+          <a href="">
+            <i class="bx bx-log-out icon"></i>
+            <span class="text nav-text">Logout</span>
+          </a>
+        </li>
+      </div>
+    </div>
+  </div>
+</nav>

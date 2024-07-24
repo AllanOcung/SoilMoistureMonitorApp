@@ -1,0 +1,16 @@
+.content {
+  width: 100%;
+  padding-top: 130px;
+  padding-left: 2rem;
+  padding-right: 1rem;
+  color: white;
+
+}
+
+.main-content {
+  display: flex;
+}
+
+.dashboard-container {
+  overflow-y: scroll;
+}

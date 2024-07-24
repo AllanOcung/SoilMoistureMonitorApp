@@ -30,8 +30,9 @@ def register(request):
             group = Group.objects.get(name='farmers')
 
             user.groups.add(group)
-            
-            messages.success(request, f'Registration successful! { username }, welcome to our community.')
+
+            messages.success(
+                request, f'Registration successful! { username }, welcome to our community.')
             return redirect('login')
     else:
         form = RegisterForm()
@@ -43,7 +44,7 @@ def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        
+
         # Implement authentication logic here
         user = authenticate(request, username=username, password=password)
         if user is not None:
@@ -52,17 +53,20 @@ def login(request):
         else:
             messages.info(request, 'username OR password is incorrect')
 
-    return render(request, 'soil_moisture/login.html') 
+    return render(request, 'soil_moisture/login.html')
+
 
 def logout(request):
     auth_logout(request)
     return redirect('login')
 
 
-@login_required_custom
-@admin_only
+# @login_required_custom
+# @admin_only
 def home(request):
+    print(request.user)
     return render(request, 'soil_moisture/admin/home.html')
+
 
 def get_dashboard_data():
     # Fetch all entries
@@ -78,12 +82,12 @@ def get_dashboard_data():
         }
         for entry in entries
     ]
-    
+
     # Calculate average soil moisture per soil texture
     soil_texture_data = SoilData.objects.values('soil_texture').annotate(
         avg_moisture=Avg('soil_moisture')
     )
-    
+
     # Calculate average rainfall per area
     average_rainfall_per_area = SoilData.objects.values('location').annotate(
         avg_rainfall=Avg('rainfall')
@@ -91,7 +95,8 @@ def get_dashboard_data():
 
     # Transform soil_texture_data for horizontal display
     soil_texture_headers = [item['soil_texture'] for item in soil_texture_data]
-    avg_moistures = [round(item['avg_moisture'], 2) for item in soil_texture_data]
+    avg_moistures = [round(item['avg_moisture'], 2)
+                     for item in soil_texture_data]
 
     # Calculate average soil moisture and average rainfall per location
     location_data = SoilData.objects.values('location').annotate(
@@ -122,17 +127,19 @@ def get_dashboard_data():
         ],
         'location_data': location_data
     }
-    
+
     return context
+
 
 @login_required_custom
 def main(request):
-    history = SoilData.objects.all().order_by('-date')  #[:20]
+    history = SoilData.objects.all().order_by('-date')  # [:20]
 
     dashboard_context = get_dashboard_data()
 
-    data = SoilData.objects.all().values('date', 'time', 'soil_moisture', 'temperature', 'humidity')
-    
+    data = SoilData.objects.all().values(
+        'date', 'time', 'soil_moisture', 'temperature', 'humidity')
+
     # Convert data to json format
     data_json = json.dumps(list(data), default=str)
 
@@ -144,16 +151,17 @@ def main(request):
     return render(request, 'soil_moisture/main.html', context)
 
 
-
 def trends_view(request):
 
-    data = SoilData.objects.all().values('date', 'time', 'soil_moisture', 'temperature', 'humidity')
+    data = SoilData.objects.all().values(
+        'date', 'time', 'soil_moisture', 'temperature', 'humidity')
 
     # Convert data to json format
 
     data_json = json.dumps(list(data), default=str)
 
     return render(request, 'soil_moisture/main2.html', {'data': data_json})
+
 
 def major(request):
     get = SoilData.objects.all()
@@ -162,9 +170,10 @@ def major(request):
 
     context = {
         'get': get,
-        **dashboard_context,  # Include the dashboard data in the context for the major template.
-      
-        
+        # Include the dashboard data in the context for the major template.
+        **dashboard_context,
+
+
     }
 
     return render(request, 'soil_moisture/major.html', context)
