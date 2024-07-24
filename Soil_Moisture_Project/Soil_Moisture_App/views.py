@@ -13,11 +13,24 @@ from django.contrib.auth.decorators import login_required
 
 from .decorators import *
 
+from django.contrib.auth.models import User
+
 import json
+from django.utils import timezone
+
+# API
+import requests
+from django.conf import settings
+
+
+# Create your Views here:
+
+
+def landing_page(request):
+    return render(request, 'soil_moisture/landing_page.html')
 
 
 @unauthenticated_user
-@login_required_custom
 def register(request):
     form = RegisterForm()
 
@@ -62,7 +75,20 @@ def logout(request):
 @login_required_custom
 @admin_only
 def home(request):
-    return render(request, 'soil_moisture/admin/home.html')
+    # Fetch Users
+    users = User.objects.all()
+
+    dashboard_context = get_dashboard_data()
+
+    city = 'Kampala'
+    weather_data = get_weather_forecast(city)
+
+    context = {
+        'users': users,
+        **dashboard_context, 
+        'weather_data': weather_data,
+    }
+    return render(request, 'soil_moisture/admin/home.html', context)
 
 def get_dashboard_data():
     # Fetch all entries
@@ -125,50 +151,55 @@ def get_dashboard_data():
     
     return context
 
+
 @login_required_custom
 def main(request):
-    history = SoilData.objects.all().order_by('-date')  #[:20]
 
-    dashboard_context = get_dashboard_data()
-
+    # Fetch data
     data = SoilData.objects.all().values('date', 'time', 'soil_moisture', 'temperature', 'humidity')
-    
+
+    # Convert data to a format suitable for the frontend
+    dates = [f"{item['date']}" for item in data]
+    moisture_levels = [item['soil_moisture'] for item in data]
+    temperature = [item['temperature'] for item in data]
+    humidity = [item['humidity'] for item in data]
+
     # Convert data to json format
     data_json = json.dumps(list(data), default=str)
 
+    # For Historical Data
+    history = SoilData.objects.all().order_by('-date')
+
+    dashboard_context = get_dashboard_data()
+
+    city = 'Kampala'
+    weather_data = get_weather_forecast(city)
+
     context = {
+        'dates': json.dumps(dates),
+        'moisture_levels': json.dumps(moisture_levels),
+        'temperature': json.dumps(temperature),
+        'humidity': json.dumps(humidity),
+        'data': data_json,
         'history': history,
-        **dashboard_context,
-        'data': data_json
-    }
-    return render(request, 'soil_moisture/main.html', context)
-
-
-
-def trends_view(request):
-
-    data = SoilData.objects.all().values('date', 'time', 'soil_moisture', 'temperature', 'humidity')
-
-    # Convert data to json format
-
-    data_json = json.dumps(list(data), default=str)
-
-    return render(request, 'soil_moisture/main2.html', {'data': data_json})
-
-def major(request):
-    get = SoilData.objects.all()
-
-    dashboard_context = get_dashboard_data()
-
-    context = {
-        'get': get,
-        **dashboard_context,  # Include the dashboard data in the context for the major template.
-      
-        
+        **dashboard_context,   
+        'weather_data': weather_data
     }
 
-    return render(request, 'soil_moisture/major.html', context)
+    return render(request, 'soil_moisture/user/main.html', context)
 
 
-def dashboard(request):
-    return render(request, 'soil_moisture/Dashboard.html')
+
+# API
+def get_weather_forecast(city):
+    api_key = settings.WEATHER_API_KEY
+    base_url = "http://api.openweathermap.org/data/2.5/weather"
+    params = {
+        'q': city,
+        'appid': api_key,
+        'units': 'metric'  # or 'imperial' for Fahrenheit
+    }
+    response = requests.get(base_url, params=params)
+    data = response.json()
+    return data
+
