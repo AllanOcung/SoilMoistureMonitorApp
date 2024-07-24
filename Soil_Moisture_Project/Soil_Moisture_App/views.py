@@ -25,12 +25,12 @@ from django.conf import settings
 
 # Create your Views here:
 
-
+@login_required_custom
 def landing_page(request):
     return render(request, 'soil_moisture/landing_page.html')
 
 
-@unauthenticated_user
+
 def register(request):
     form = RegisterForm()
 
@@ -51,7 +51,6 @@ def register(request):
     return render(request, 'soil_moisture/register.html', {'form': form})
 
 
-@unauthenticated_user
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -61,7 +60,10 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect('home')
+            if user.groups.filter(name='admin').exists():
+                return redirect('home')
+            elif user.groups.filter(name='farmers').exists():
+                return redirect('main')
         else:
             messages.info(request, 'username OR password is incorrect')
 
@@ -73,7 +75,6 @@ def logout(request):
 
 
 @login_required_custom
-@admin_only
 def home(request):
     # Fetch Users
     users = User.objects.all()
