@@ -12,6 +12,7 @@ urlpatterns = [
         path('logout/', views.logout, name='logout'),
         path('home/', views.home, name='home'),
         path('main/', views.main, name='main'),
+        path('predict/', views.predict, name='predict'),
 
         
    ]

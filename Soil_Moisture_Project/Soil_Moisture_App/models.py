@@ -14,6 +14,7 @@ class SoilData(models.Model):
     soil_texture = models.CharField(max_length=100)
     rainfall = models.FloatField()
     soil_moisture = models.FloatField()
+    comment = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return f"{self.date} {self.time} - {self.location} - Soil Moisture: {self.soil_moisture}"

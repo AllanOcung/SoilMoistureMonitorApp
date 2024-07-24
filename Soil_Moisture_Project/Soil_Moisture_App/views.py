@@ -22,6 +22,11 @@ from django.utils import timezone
 import requests
 from django.conf import settings
 
+from django.shortcuts import render
+import joblib
+import pandas as pd
+
+
 
 # Create your Views here:
 
@@ -73,7 +78,6 @@ def logout(request):
 
 
 @login_required_custom
-@admin_only
 def home(request):
     # Fetch Users
     users = User.objects.all()
@@ -202,4 +206,62 @@ def get_weather_forecast(city):
     response = requests.get(base_url, params=params)
     data = response.json()
     return data
+
+# Machine Learning Model
+@login_required_custom
+def predict(request):
+    if request.method == 'POST':
+        # Get data from the form
+        date = request.POST.get('date')
+        time = request.POST.get('time')
+        location = request.POST.get('location')
+        temperature = float(request.POST.get('temperature'))
+        humidity = float(request.POST.get('humidity'))
+        soil_texture = request.POST.get('soil_texture')
+        rainfall = float(request.POST.get('rainfall'))
+        
+        
+
+        # Load the model and scaler
+        model = joblib.load(r'C:\Users\CISSYLINE\Desktop\Training\random_forest_model.pkl')
+        scaler = joblib.load(r'C:\Users\CISSYLINE\Desktop\Training\randomScaler.pkl')
+
+        # Prepare the data for prediction
+        new_data = pd.DataFrame({
+            'temperature': [temperature],
+            'humidity': [humidity]
+        })
+        new_data_scaled = scaler.transform(new_data)
+
+        # Make prediction
+        prediction = model.predict(new_data_scaled)[0]
+        prediction = round(prediction, 4)
+
+        # Determine the comment based on the predicted soil moisture
+        if prediction < 0.3:
+            comment = 'Soil  dry'
+        elif 0.3<= prediction <= 0.35:
+            comment = 'Soil moisture moderate'
+        else:
+            comment = 'Soil wet'
+
+        # Save prediction and comment to the database
+        SoilData.objects.create(
+            date=date,
+            time=time,
+            location=location,
+            temperature=temperature,
+            humidity=humidity,
+            soil_texture=soil_texture,
+            rainfall=rainfall,
+            soil_moisture=prediction,
+            comment=comment  
+        )
+
+        # Return the prediction and comment
+        return render(request, 'soil_moisture/result.html', {'prediction': prediction, 'comment': comment})
+
+    else:
+     return render(request, 'soil_moisture/predict.html')
+  
 
