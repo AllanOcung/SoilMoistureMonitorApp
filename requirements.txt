@@ -2,3 +2,5 @@ Django==5.0.7
 mysqlclient
 djangorestframework
 requests
+joblib
+pandas
