@@ -15,19 +15,26 @@
     {% include "soil_moisture/links.html" %}
   </head>
   <body>
-    <div class="dashboard-container">
+    <div class="container">
       <!-- Include the header -->
+      {% include "soil_moisture/admin/sidebar.html" %}
       <div class="main-content">
         <!-- Include the sidebar -->
-        {% include "soil_moisture/admin/sidebar.html" %}
         <div class="content">
           <!-- Main dashboard content goes here -->
 
           {% include "feedback/feedback_container.html" %}
         </div>
       </div>
+
+      <!-- Right Section -->
+      {% include 'soil_moisture/admin/rightsection.html' %}
     </div>
 
     <link rel="stylesheet" href="{% static 'feedback/css/admin-fix.css' %}" />
+    <script>
+      const feedbackItem = document.getElementById("sidebar-feedback-item");
+      feedbackItem.classList.add("active");
+    </script>
   </body>
 </html>
