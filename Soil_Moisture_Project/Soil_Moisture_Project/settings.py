@@ -138,3 +138,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 WEATHER_API_KEY = '41fa16b83a68db7e057cafde3c6a1043'
+
+TIME_ZONE = "Africa/Nairobi"

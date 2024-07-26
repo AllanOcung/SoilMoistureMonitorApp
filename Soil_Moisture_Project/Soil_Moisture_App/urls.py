@@ -18,5 +18,6 @@ urlpatterns = [
         path('prediction_history/', views.prediction_history, name='prediction_history'),
         path('chart/', views.chart, name='chart'),
         path('trends_view/', views.trends_view, name='trends_view'),
+
         
    ]

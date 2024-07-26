@@ -25,7 +25,6 @@ from django.conf import settings
 import joblib
 import pandas as pd
 
-
 # Create your Views here:
 
 def landing_page(request):
@@ -225,6 +224,7 @@ def get_weather_forecast(city):
     return data
 
 
+
 # Machine Learning integration
 @login_required_custom
 def predict(request):
@@ -247,9 +247,11 @@ def predict(request):
         soil_texture = request.POST.get('soil_texture')
         rainfall = float(request.POST.get('rainfall'))
 
+
         # Load the model and scaler
         model = joblib.load(r'C:\Users\user\Desktop\Recess2 Project\SoilMoistureMonitorApp\random_forest_model.pkl')
         scaler = joblib.load(r'C:\Users\user\Desktop\Recess2 Project\SoilMoistureMonitorApp\randomScaler.pkl')
+
 
         # Prepare the data for prediction
         new_data = pd.DataFrame({
@@ -264,8 +266,8 @@ def predict(request):
 
         # Determine the comment based on the predicted soil moisture
         if prediction < 0.3:
-            comment = 'Soil dry'
-        elif 0.3 <= prediction <= 0.35:
+            comment = 'Soil  dry'
+        elif 0.3<= prediction <= 0.35:
             comment = 'Soil moisture moderate'
         else:
             comment = 'Soil wet'
@@ -282,6 +284,7 @@ def predict(request):
             soil_moisture=prediction,
             comment=comment  
         )
+
 
         # Create a notification
         Notification.objects.create(
@@ -378,3 +381,12 @@ def trends_view(request):
     data_json = json.dumps(list(data), default=str)
 
     return render(request, 'soil_moisture/main2.html', {'data': data_json})
+
+    #     # Return the prediction and comment
+    #     return render(request, 'soil_moisture/result.html', {'prediction': prediction, 'comment': comment})
+
+    # else:
+    #  return render(request, 'soil_moisture/predict.html')
+  
+
+
