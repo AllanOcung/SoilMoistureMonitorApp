@@ -1,108 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
-      rel="stylesheet"
-    />
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'soil_moisture/css/home.css' %}" />
-    <!-- Material Icons -->
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-    />
 
-    {% include "soil_moisture/links.html" %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'soil_moisture/css/home.css' %}">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <!-- js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <title>SoilSense AI | Admin Dashboard</title>
-  </head>
+</head>
 
-  <body>
+<body>
+
     <div class="container">
-      <!-- Sidebar Section -->
-      {% include 'soil_moisture/admin/sidebar.html' %}
-      <!-- End of Sidebar Section -->
+        <!-- Sidebar Section -->
+        {% include 'soil_moisture/admin/sidebar.html' %}
+        <!-- End of Sidebar Section -->
 
-      <!-- Main Content -->
-      <main>
-        <h1>
-          <span class="material-symbols-outlined">dashboard</span> Dashboard
-        </h1>
+        <!-- Main Content -->
+        <main>
+            
+            <h1><span class="material-symbols-outlined">dashboard</span> Dashboard</h1>
+           
+            <!-- Analysis -->
+            <div class="analyse">
+                {% for item in location_data %}
+                <div class="sales">
+                    <div class="status">
+                        <div class="info">
+                            <h2>{{ item.location }}</h2>
+                            <p>Average Rainfall: {{ item.avg_rainfall }}</p>
+                            <br>
+                            <p>Average Moisture: {{ item.avg_moisture }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div> 
+                
+            <!-- End of Analysis -->
 
-        <!-- Analysis -->
-        <div class="analyse">
-          {% for item in location_data %}
-          <div class="sales">
-            <div class="status">
-              <div class="info">
-                <h2>{{ item.location }}</h2>
-                <p>Average Rainfall: {{ item.avg_rainfall }}</p>
-                <p>Average Moisture: {{ item.avg_moisture }}</p>
-                <p>Soil Status:</p>
-              </div>
+            <!-- Canvas for Line Graphs -->
+            <div style="width: 100%;  margin-top: 40px; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h2>Soil Moisture over time</h2>
+                <canvas id="soilMoistureChart"></canvas>
             </div>
-          </div>
-          {% endfor %}
-        </div>
-
-        <!-- End of Analysis -->
-
-        <!-- Users Section -->
-        <div class="new-users">
-          <h2>Users</h2>
-          <div class="user-list">
-            {% for user in users %}
-            <div class="user">
-              <img
-                src="{% static 'soil_moisture/images/admin.jpg' %}"
-                alt="User Avatar"
-                class="user-avatar"
-              />
-              <h2>{{ user.username }}</h2>
-              <p>Email: {{ user.email }}</p>
+            <div style="width: 100%;  margin-top: 40px; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h2>Soil Texture</h2>
+                <canvas id="chart-soil-texture"></canvas>
             </div>
-            {% endfor %}
-          </div>
-        </div>
-        <!-- End of Users Section -->
+            <div style="width: 100%;  margin-top: 40px; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h2>Soil Moisture over time</h2>
+                <canvas id="soilMoistureChart"></canvas>
+            </div>
 
-        <!-- Recent Predictions -->
-        <div class="recent-orders">
-          <h2>Historical Data</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Field</th>
-                <th>Soil Texture</th>
-                <th>SoilMoisture</th>
-                <th>Status</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-          <a href="#">Show All</a>
-        </div>
-        <!-- End of Recent Predictions -->
-      </main>
-      <!-- End of Main Content -->
+            <!-- Users Section -->
+            <div class="new-users">
+                <h2>Users</h2>
+                <div class="user-list">
+                    {% for user in users %}
+                    <div class="user">
+                        <img src="{% static 'soil_moisture/images/admin.jpg' %}" alt="User Avatar" class="user-avatar">
+                        <h2>{{ user.username }}</h2>
+                        <p>Email: {{ user.email }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- End of Users Section -->
 
-      <!-- Right Section -->
-      {% include 'soil_moisture/admin/rightsection.html' %}
+            <!-- Recent Predictions -->
+            <div class="recent-orders">
+                <h2>Prediction History</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Soil Texture</th>
+                            <th>SoilMoisture</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <a href="#">Show All</a>
+            </div>
+            <!-- End of Recent Predictions -->
+
+            
+            
+
+        </main>
+        <!-- End of Main Content -->
+
+        <!-- Right Section -->
+       {% include 'soil_moisture/admin/rightsection.html' %}
+
+
     </div>
 
     <!-- Js -->
     <script src="{% static 'soil_moisture/js/mode.js' %}"></script>
-  </body>
+    <script>
+        // Data from Django context
+        const soilData = JSON.parse('{{ data|escapejs }}');
+        const soilTextureHeaders = JSON.parse('{{ soil_texture_headers|escapejs }}');
+        const avgMoistures = JSON.parse('{{ avg_moistures|escapejs }}');
+        const averageRainfallPerArea = JSON.parse('{{ average_rainfall_per_area|escapejs }}');
+        const locationData = JSON.parse('{{ location_data|escapejs }}');
+
+        // Line Chart for Soil Moisture Over Time
+        var ctxSoilMoisture = document.getElementById("chart-soil-moisture").getContext("2d");
+        new Chart(ctxSoilMoisture, {
+            type: "line",
+            data: {
+                labels: soilData.map(item => item.date + ' ' + item.time),
+                datasets: [{
+                    label: "Soil Moisture",
+                    data: soilData.map(item => item.soil_moisture),
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                    borderWidth: 2,
+                    fill: true
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [5, 5],
+                            color: 'rgba(255, 255, 255, .2)'
+                        },
+                        ticks: {
+                            display: true,
+                            padding: 10,
+                            color: '#f8f9fa',
+                            font: {
+                                size: 14,
+                                weight: 300,
+                                family: "Roboto",
+                                style: 'normal',
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#f8f9fa',
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                weight: 300,
+                                family: "Roboto",
+                                style: 'normal',
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                },
+            },
+        });
+
+        // Pie Chart for Average Soil Moisture by Soil Texture
+        var ctxSoilTexture = document.getElementById("chart-soil-texture").getContext("2d");
+        new Chart(ctxSoilTexture, {
+            type: "pie",
+            data: {
+                labels: soilTextureHeaders,
+                datasets: [{
+                    label: "Average Soil Moisture",
+                    data: avgMoistures,
+                    backgroundColor: [
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
+                        "rgba(255, 159, 64, 0.2)"
+                    ],
+                    borderColor: [
+                        "rgba(255, 99, 132, 1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 206, 86, 1)",
+                        "rgba(75, 192, 192, 1)",
+                        "rgba(153, 102, 255, 1)",
+                        "rgba(255, 159, 64, 1)"
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Pie Chart for Average Rainfall by Location
+        var ctxRainfallLocation = document.getElementById("chart-rainfall-location").getContext("2d");
+        new Chart(ctxRainfallLocation, {
+            type: "pie",
+            data: {
+                labels: locationData.map(item => item.location),
+                datasets: [{
+                    label: "Average Rainfall",
+                    data: locationData.map(item => item.avg_rainfall),
+                    backgroundColor: [
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
+                        "rgba(255, 159, 64, 0.2)"
+                    ],
+                    borderColor: [
+                        "rgba(255, 99, 132, 1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 206, 86, 1)",
+                        "rgba(75, 192, 192, 1)",
+                        "rgba(153, 102, 255, 1)",
+                        "rgba(255, 159, 64, 1)"
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+
+    <!-- Graphs -->
+    <script>
+        // Parse data from Django context
+        const data = JSON.parse('{{ data|escapejs }}');
+
+        // Prepare data for Soil Moisture Chart
+        const dates = data.map(item => `${item.date} `);
+        const soilMoistures = data.map(item => item.soil_moisture);
+
+        const temperature = data.map(item => item.temperature);
+        const humidity = data.map(item => item.humidity);
+
+        // Create Soil Moisture Chart
+        const ctx1 = document.getElementById('soilMoistureChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Soil Moisture',
+                    data: soilMoistures,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Create Temperature and Humidity Chart
+        const ctx2 = document.getElementById('temperatureHumidityChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [
+                    {
+                        label: 'Temperature',
+                        data: temperature,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: false
+                    },
+                    {
+                        label: 'Humidity',
+                        data: humidity,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    
+</body>
+
 </html>

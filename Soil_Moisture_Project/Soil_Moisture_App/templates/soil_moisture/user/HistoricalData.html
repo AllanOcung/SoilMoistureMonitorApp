@@ -1,6 +1,6 @@
 <main class="table">
     <section class="table__header">
-      <h5>Historical Data</h5>
+      <h5>Prediction History</h5>
     </section>
     <section class="table__body">
       <table>
@@ -14,6 +14,7 @@
             <th>Humidity (%) <span class="icon-arrow">&UpArrow;</span></th>
             <th>Soil Texture <span class="icon-arrow">&UpArrow;</span></th>
             <th>Soil Moisture (%) <span class="icon-arrow">&UpArrow;</span></th>
+            <th>Remark (%) <span class="icon-arrow">&UpArrow;</span></th>
           </tr>
         </thead>
         <tbody>
@@ -28,6 +29,7 @@
                 <td>{{ data.humidity }}</td>
                 <td>{{ data.soil_texture }}</td>
                 <td>{{ data.soil_moisture }}</td>
+                <td>{{ data.comment }}</td>
               </tr>
             {% endfor %}
           {% else %}

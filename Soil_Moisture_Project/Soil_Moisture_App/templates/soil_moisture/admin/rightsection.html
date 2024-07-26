@@ -43,29 +43,36 @@
     </div>
     <!-- End User Profile -->
 
-    <!-- Reminders -->
+    <!-- Notifications -->
     <div class="reminders">
         <div class="header">
             <h2>Notifications</h2>
+            {% if notifications_count > 0 %}
+            <p>unread: <strong>{{ notifications_count }}</strong></p>
+            {% endif %}
             <span class="material-icons-sharp">
                 notifications_none
             </span>
+            
         </div>
-
+        {% for notification in notifications %}
         <div class="notification">
             <div class="icon">
                 <span class="material-symbols-outlined">chat</span>
             </div>
-            <div class="content">
-                <div class="info">
-                    <h3>Fetch Notifications</h3>
+            <div class="content"> 
+                <div class="info">   
+                    <h3>{{ notification.message }}</h3>  
+                    {% if not notification.is_read %}
+                <a href="{% url 'mark_as_read' notification.id %}"><strong>Mark as read</strong></a>
+            {% endif %} 
                 </div>
                 <span class="material-icons-sharp">
                     more_vert
                 </span>
             </div>
         </div>
-
+        {% endfor %}
     </div>
     <!-- End Reminders -->
 

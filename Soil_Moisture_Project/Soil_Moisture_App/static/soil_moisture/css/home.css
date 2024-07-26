@@ -218,6 +218,7 @@ main .analyse > div .status{
 
 main .new-users{
     margin-top: 1.3rem;
+    margin-bottom: 30px;
 }
 
 main .new-users .user-list{
@@ -602,5 +603,7 @@ main .recent-orders a{
     .right-section .nav button span{
         font-size: 2rem;
     }
+
+
 
 }

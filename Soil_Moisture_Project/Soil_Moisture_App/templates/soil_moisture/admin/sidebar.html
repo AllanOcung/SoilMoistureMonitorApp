@@ -5,7 +5,7 @@
 <aside>
   <div class="toggle">
     <div class="logo">
-      <h2>SoilSense<span class="danger">AI</span></h2>
+      <h2>SoilSense<span class="danger" style="color: red;">AI</span></h2>
     </div>
     <div class="close" id="close-btn">
       <span class="material-icons-sharp"> close </span>
@@ -13,7 +13,7 @@
   </div>
 
   <div class="sidebar">
-    <a href="#">
+    <a href="{% url 'home' %}">
       <span class="material-icons-sharp">dashboard</span>
       <h3>Dashboard</h3>
     </a>
@@ -25,11 +25,11 @@
       <span class="material-icons-sharp">receipt_long</span>
       <h3>History</h3>
     </a>
-    <a href="#" class="active">
+    <a href="{% url 'current_predictions' %}" class="active">
       <span class="material-symbols-outlined">show_chart</span>
       <h3>Predictions</h3>
     </a>
-    <a href="#">
+    <a href="{% url 'predict' %}">
       <span class="material-symbols-outlined">upload</span>
       <h3>Upload Data</h3>
     </a>
