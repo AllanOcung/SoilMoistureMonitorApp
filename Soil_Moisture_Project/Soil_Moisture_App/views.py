@@ -313,7 +313,25 @@ def current_predictions(request):
         except SoilData.DoesNotExist:
             latest_entries[field] = None
 
-    return render(request, 'soil_moisture/current_predictions.html', {'latest_entries': latest_entries})
+    return render(request, 'soil_moisture/admin/current_predictions.html', {'latest_entries': latest_entries})
+
+
+
+def user_current_predictions(request):
+    fields = ['Field A', 'Field B', 'Field C']
+    latest_entries = {}
+    
+    today = timezone.now().date()
+    
+    for field in fields:
+        try:
+            latest_entry = SoilData.objects.filter(location=field, date=today).order_by('-date', '-time').first()
+            latest_entries[field] = latest_entry
+        except SoilData.DoesNotExist:
+            latest_entries[field] = None
+
+    return render(request, 'soil_moisture/user/current_predictions.html', {'latest_entries': latest_entries})
+
 
 
 # Mark Notifications as read

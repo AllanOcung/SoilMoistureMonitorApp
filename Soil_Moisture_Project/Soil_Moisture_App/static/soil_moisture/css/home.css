@@ -95,6 +95,7 @@ p{
 
 aside{
     height: 100vh;
+    position: fixed;
 }
 
 aside .toggle{
