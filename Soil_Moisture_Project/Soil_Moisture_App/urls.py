@@ -18,7 +18,7 @@ urlpatterns = [
         path('notifications/mark_as_read/<int:notification_id>/', views.mark_as_read, name='mark_as_read'),
         path('prediction_history/', views.prediction_history, name='prediction_history'),
         path('chart/', views.chart, name='chart'),
-        path('trends_view/', views.trends_view, name='trends_view'),
+        path('users/', views.users, name='users'),
 
         
    ]

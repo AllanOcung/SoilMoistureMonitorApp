@@ -390,21 +390,13 @@ def chart(request):
     }
     return render(request, 'soil_moisture/admin/chart.html', {'context': context})
 
-def trends_view(request):
 
-    data = SoilData.objects.all().values('date', 'time', 'soil_moisture', 'temperature', 'humidity')
+def users(request):
+    users = User.objects.all()
 
-    # Convert data to json format
-
-    data_json = json.dumps(list(data), default=str)
-
-    return render(request, 'soil_moisture/main2.html', {'data': data_json})
-
-    #     # Return the prediction and comment
-    #     return render(request, 'soil_moisture/result.html', {'prediction': prediction, 'comment': comment})
-
-    # else:
-    #  return render(request, 'soil_moisture/predict.html')
-  
+    context = {
+        'users': users,
+    }
+    return render(request, 'soil_moisture/admin/users.html', context)
 
 

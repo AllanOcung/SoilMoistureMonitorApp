@@ -95,7 +95,6 @@ p{
 
 aside{
     height: 100vh;
-    position: fixed;
 }
 
 aside .toggle{
@@ -116,6 +115,7 @@ aside .toggle .close{
 }
 
 aside .sidebar{
+    position: fixed;
     display: flex;
     flex-direction: column;
     background-color: var(--color-white);

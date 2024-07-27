@@ -67,18 +67,7 @@
             </div>
 
             <!-- Users Section -->
-            <div class="new-users">
-                <h2>Users</h2>
-                <div class="user-list">
-                    {% for user in users %}
-                    <div class="user">
-                        <img src="{% static 'soil_moisture/images/admin.jpg' %}" alt="User Avatar" class="user-avatar">
-                        <h2>{{ user.username }}</h2>
-                        <p>Email: {{ user.email }}</p>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+            <!-- {% include 'soil_moisture/admin/users.html' %} -->
             <!-- End of Users Section -->
 
             <!-- Recent Predictions -->
