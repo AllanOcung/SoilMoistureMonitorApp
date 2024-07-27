@@ -51,6 +51,10 @@
 
             <!-- Canvas for Line Graphs -->
             <div style="width: 100%;  margin-top: 40px; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h2>Temperature and Humidity Chart</h2>
+                    <canvas id="temperatureHumidityChart"></canvas>                
+            </div>
+            <div style="width: 100%;  margin-top: 40px; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <h2>Soil Moisture over time</h2>
                 <canvas id="soilMoistureChart"></canvas>
             </div>
@@ -61,32 +65,13 @@
                 </div>
                 
             </div>
-            <div style="width: 100%;  margin-top: 40px; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                <h2>Soil Moisture over time</h2>
-                    <canvas id="temperatureHumidityChart"></canvas>                
-            </div>
 
             <!-- Users Section -->
             <!-- {% include 'soil_moisture/admin/users.html' %} -->
             <!-- End of Users Section -->
 
             <!-- Recent Predictions -->
-            <div class="recent-orders">
-                <h2>Prediction History</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Field</th>
-                            <th>Soil Texture</th>
-                            <th>SoilMoisture</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-                <a href="#">Show All</a>
-            </div>
+            
             <!-- End of Recent Predictions -->
 
             

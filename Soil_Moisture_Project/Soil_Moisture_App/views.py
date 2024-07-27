@@ -390,7 +390,7 @@ def chart(request):
     }
     return render(request, 'soil_moisture/admin/chart.html', {'context': context})
 
-
+# Admin
 def users(request):
     users = User.objects.all()
 
@@ -398,5 +398,11 @@ def users(request):
         'users': users,
     }
     return render(request, 'soil_moisture/admin/users.html', context)
+def prediction_history(request):
+    history = SoilData.objects.all().order_by('-date')
+    context = {
+        'history': history,
+    }
+    return render(request, 'soil_moisture/admin/prediction_history.html', context)
 
 
