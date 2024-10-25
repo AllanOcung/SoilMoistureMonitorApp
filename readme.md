@@ -15,3 +15,14 @@ table of members
 ## Introduction
 
 This is a web application that predicts soil moisture content in a given area. The application uses machine learning algorithms to predict the soil moisture content. The application is built using the Django framework.
+
+SETUP INSTRUCTIONS
+1. Create and activate a virtual environment:
+     python -m venv venv
+     venv\Scripts\activate
+2. Install dependencies from requirements.txt:
+     pip install -r requirements.txt
+3. Run database migrations:
+     python manage.py migrate
+5. Start the Django development server:
+     python manage.py runserver
