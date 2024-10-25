@@ -86,6 +86,9 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
+        'OPTIONS': {
+            'ssl': {'ssl_disabled': True,},  # Disable SSL by specifying an empty SSL certificate
+        },
     }
 }
 
